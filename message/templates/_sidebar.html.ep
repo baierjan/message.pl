@@ -1,0 +1,30 @@
+<div class="nav flex-column align-items-center">
+	<button type="button" class="btn btn-primary">Add message</button>
+</div>
+<nav class="nav flex-column mt-4">
+    <a class="nav-link active" href="#">
+        <span data-feather="message-circle"></span>
+        All Topics
+    </a>
+    <a class="nav-link" href="#">
+        <span data-feather="inbox"></span>
+        New Messages
+    </a>
+    <a class="nav-link" href="#">
+        <span data-feather="bookmark"></span>
+        Bookmarked
+    </a>
+    <a class="nav-link" href="#">
+        <span data-feather="tag"></span>
+        Tags
+    </a>
+</nav>
+<div class="list-group mt-4">
+    <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" href="#">
+        Thread 1
+        <span class="badge badge-pill badge-primary">14</span>
+    </a>
+    <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" href="#">
+        Thread 2
+    </a>
+</div>
