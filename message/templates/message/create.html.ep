@@ -1,0 +1,6 @@
+%layout 'default';
+%title 'Nová zpráva';
+
+<h4><%= stash('topic')->name %></h4>
+
+%= include 'message/_create_or_edit'

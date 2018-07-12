@@ -1,0 +1,17 @@
+%= form_for defined $message ? 'edit_message' : 'add_message' => (method => 'POST') => begin
+    <div class="form-group">
+        %= label_for 'text', "Zpráva:"
+        % my $err = validation->error('text');
+        %= text_area 'text' => (defined $message ? $message->text : ''), id => 'text', cols => 80, rows => 10, class => 'form-control'.($err ? ' is-invalid' : ''), 'required' => undef
+        % if ($err) {
+            <div class="invalid-feedback">
+                %= 'Text nesmí být prázdný!' if $err->[0] eq 'required' 
+            </div>
+        % }
+    </div>
+    %= submit_button 'submit', value => (defined $message ? 'Editovat' : 'Přidat'), class => 'btn btn-primary'
+    %= csrf_field
+    % if (defined $message) {
+        %= hidden_field 'id' => $message->id
+    % }
+% end

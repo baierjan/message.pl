@@ -1,0 +1,10 @@
+% layout 'default';
+% title 'Diskuze';
+
+<h4><%= stash('topic')->name %></h4>
+<%= render_topic_tree stash('topic') %>
+
+<% my $messages = stash('topic')->search_related_rs('messages', {}, { order_by => 'created_at desc' }); %> 
+<% while (my $message = $messages->next) { %>
+    <%= include 'message/_show', message => $message %>
+<% } %>
