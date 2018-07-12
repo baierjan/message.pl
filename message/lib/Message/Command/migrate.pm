@@ -18,7 +18,10 @@ sub run {
         },
     );
 
-    $schema->install('0.000') unless ($schema->get_db_version());
+    my $home = Mojo::Home->new;
+    $home->detect;
+    $schema->upgrade_directory($home->path(qw/db migrations/));
+    $schema->deploy unless ($schema->get_db_version());
     $schema->upgrade;
 }
 

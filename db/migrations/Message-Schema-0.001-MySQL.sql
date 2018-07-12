@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Mon Jul  9 14:42:19 2018
+-- Created on Wed Jul 11 16:23:39 2018
 -- 
 SET foreign_key_checks=0;
 
@@ -15,18 +15,18 @@ CREATE TABLE author (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
-DROP TABLE IF EXISTS label;
+DROP TABLE IF EXISTS topic;
 
 --
--- Table: label
+-- Table: topic
 --
-CREATE TABLE label (
+CREATE TABLE topic (
   id integer NOT NULL auto_increment,
-  name text NOT NULL,
+  name varchar(255) NOT NULL,
   parent_id integer NOT NULL,
-  INDEX label_idx_parent_id (parent_id),
+  INDEX topic_idx_parent_id (parent_id),
   PRIMARY KEY (id),
-  CONSTRAINT label_fk_parent_id FOREIGN KEY (parent_id) REFERENCES label (id) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT topic_fk_parent_id FOREIGN KEY (parent_id) REFERENCES topic (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS message;
@@ -36,17 +36,15 @@ DROP TABLE IF EXISTS message;
 --
 CREATE TABLE message (
   id integer NOT NULL auto_increment,
-  label_id integer NOT NULL,
+  topic_id integer NOT NULL,
   author_id integer NOT NULL,
   text text NOT NULL,
-  datetime datetime NOT NULL DEFAULT now(),
-  useragent text NOT NULL,
-  client_ip varchar(64) NOT NULL,
+  created_at datetime NOT NULL DEFAULT now(),
   INDEX message_idx_author_id (author_id),
-  INDEX message_idx_label_id (label_id),
+  INDEX message_idx_topic_id (topic_id),
   PRIMARY KEY (id),
   CONSTRAINT message_fk_author_id FOREIGN KEY (author_id) REFERENCES author (id) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT message_fk_label_id FOREIGN KEY (label_id) REFERENCES label (id) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT message_fk_topic_id FOREIGN KEY (topic_id) REFERENCES topic (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
 SET foreign_key_checks=1;

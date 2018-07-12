@@ -10,7 +10,7 @@ __PACKAGE__->add_columns(
         is_nullable => 0,
         is_auto_increment => 1,
     },
-    label_id => {
+    topic_id => {
         data_type => 'integer',
         is_nullable => 0,
     },
@@ -22,27 +22,17 @@ __PACKAGE__->add_columns(
         data_type => 'text',
         is_nullable => 0,
     },
-    datetime => {
+    created_at => {
         data_type => 'datetime',
         timezone => 'Europe/Prague',
         locale => 'cs_CZ.UTF-8',
         is_nullable => 0,
         default_value => \'now()',
     },
-    useragent => {
-        data_type => 'varchar',
-        size => 256,
-        is_nullable => 0,
-    },
-    client_ip => {
-        data_type => 'varchar',
-        size => 64,
-        is_nullable => 0,
-    },
 );
 
 __PACKAGE__->set_primary_key('id');
 __PACKAGE__->belongs_to('author', 'Message::Schema::Result::Author', 'author_id');
-__PACKAGE__->belongs_to('label', 'Message::Schema::Result::Label', 'label_id');
+__PACKAGE__->belongs_to('topic', 'Message::Schema::Result::Topic', 'topic_id');
 
 1;

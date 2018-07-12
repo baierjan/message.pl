@@ -9,6 +9,7 @@ has usage => sub { shift->extract_usage };
 
 sub run {
     my ($self, @args) = @_;
+    my $prev = shift @args;
 
     my $schema = Message::Schema->connect(
         $self->app->config->{db}->{dsn},
@@ -22,7 +23,7 @@ sub run {
     my $home = Mojo::Home->new;
     $home->detect;
     my $current_version = $schema->schema_version;
-    $schema->create_ddl_dir('MySQL', $current_version, $home->path(qw/.. db migrations/), '0.000');
+    $schema->create_ddl_dir('MySQL', $current_version, $home->path(qw/db migrations/), $prev);
 }
 
 1;
