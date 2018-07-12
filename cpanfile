@@ -1,7 +1,15 @@
 requires 'Mojolicious';
+requires 'Mojolicious::Plugin::Human';
+requires 'Mojolicious::Plugin::TimeAgo';
+requires 'Mojolicious::Plugin::Authentication';
+requires 'Mojolicious::Plugin::Authorization';
 requires 'DBIx::Class';
 requires 'DBIx::Class::Schema';
 requires 'DBIx::Class::Schema::Versioned';
 requires 'SQL::Translator';
 requires 'GD';
 requires 'Graph::Directed';
+requires 'DateTime';
+requires 'DateTime::Format::Flexible';
+requires 'DateTime::Format::MySQL';
+requires 'Text::Markdown';
