@@ -2,19 +2,15 @@
     <nav class="nav flex-column">
         <a class="nav-link <%= 'active' if current_route('topicid') && param('id') == 1 %>" href="<%= url_for('topicid', id => 1)%>">
             <span data-feather="message-circle"></span>
-            All Topics
+            Vše
         </a>
         <a class="nav-link" href="#">
             <span data-feather="inbox"></span>
-            New Messages
+            Nepřečtené
         </a>
-        <a class="nav-link" href="#">
+        <a class="nav-link <%= 'active' if current_route('bookmarks') %>" href="<%= url_for('bookmarks') %>">
             <span data-feather="bookmark"></span>
-            Bookmarked
-        </a>
-        <a class="nav-link" href="#">
-            <span data-feather="tag"></span>
-            Tags
+            Označené
         </a>
     </nav>
 </div>

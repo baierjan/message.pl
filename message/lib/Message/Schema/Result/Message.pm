@@ -34,5 +34,6 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key('id');
 __PACKAGE__->belongs_to('author', 'Message::Schema::Result::Author', 'author_id');
 __PACKAGE__->belongs_to('topic', 'Message::Schema::Result::Topic', 'topic_id');
+__PACKAGE__->has_many('bookmarks', 'Message::Schema::Result::Bookmark', 'id');
 
 1;

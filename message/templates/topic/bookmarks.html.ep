@@ -1,0 +1,6 @@
+%layout 'default';
+% title 'Označené';
+
+% while (my $bookmark = $bookmarks->next) {
+    %= include 'message/_show', message => $bookmark->message
+% }

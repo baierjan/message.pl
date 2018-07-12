@@ -17,5 +17,6 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key('id');
 __PACKAGE__->has_many('messages', 'Message::Schema::Result::Message', 'author_id');
+__PACKAGE__->has_many('bookmarks', 'Message::Schema::Result::Bookmark', 'author_id');
 
 1;

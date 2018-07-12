@@ -5,7 +5,7 @@
         <button type="button" class="btn btn-sm btn-outline-dark"><span data-feather="move"></span></button>-->
     </div>
     <div class="btn-group ml-1" role="group">
-        <!--<button type="button" class="btn btn-sm btn-outline-dark"><span data-feather="bookmark"></span></button>-->
+        <a role="button" class="btn btn-sm <%= $message->is_bookmarked_by(current_user) ? 'btn-dark' : 'btn-outline-dark' %>" href="#"><span data-feather="bookmark"></span></a>
         <a role="button" class="btn btn-sm btn-outline-dark" href="<%= url_for('add_message', id => $message->topic->id) %>"><span data-feather="send"></span></a>
     </div>
 </div>

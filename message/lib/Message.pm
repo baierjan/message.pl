@@ -93,6 +93,7 @@ sub startup {
     $r->get('/topic/:id')->to('topic#show')->name('topicid');
     $r->route('/topic/:id/comment')->to('message#create')->name('add_message');
     $r->route('/message/:id/edit')->to('message#edit')->name('edit_message');
+    $r->route('/bookmarks')->to('topic#bookmarks')->name('bookmarks');
 }
 
 1;

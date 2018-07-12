@@ -66,6 +66,10 @@ sub run {
             author_id => 1,
             text => 'Lorem ipsum',
         });
+    $schema->resultset('Bookmark')->create({
+            author_id => 1,
+            message_id => 1,
+        });
 }
 
 1;

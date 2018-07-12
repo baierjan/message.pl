@@ -51,12 +51,12 @@ sub parse_tree {
         next if $child->id == 1;
         my $value = Mojo::ByteStream->new($self->tag('a', href => $self->url_for('topicid', id => $child->id), $child->name));
         $$value .= parse_tree($self, $child);
-        $$stream .= $self->tag('li', class => 'xlist-group-item', $value);
+        $$stream .= $self->tag('li', $value);
         $render = 1;
     }
     if ($render) {
         return Mojo::ByteStream->new(
-            $self->tag('ul', class => 'xlist-group xlist-group-flush', $stream)
+            $self->tag('ul', class => 'mb-0', $stream)
         );
     }
     else {
