@@ -5,10 +5,11 @@ sub show {
     my $self = shift;
 
     my $id = $self->param('id');
-    my $root = $self->app->db->resultset('Topic')->find($id);
-    return $self->render(text => "No such topic", status => 404) unless $root;
+    my $topic = $self->app->db->resultset('Topic')->find($id);
+    return $self->render(text => "No such topic", status => 404) unless $topic;
 
-    $self->render(topic => $root);
+    my $messages = $topic->search_related_rs('messages', {}, { order_by => 'created_at desc' });
+    $self->render(topic => $topic, messages => $messages);
 }
 
 1;

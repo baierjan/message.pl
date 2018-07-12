@@ -1,10 +1,14 @@
 % layout 'default';
-% title 'Diskuze';
+% title 'Téma: '.$topic->name;
 
-<h4><%= stash('topic')->name %></h4>
-<%= render_topic_tree stash('topic') %>
+<div class="d-flex">
+    %= render_parents $topic
+    <div class="breadcrumb rounded-right" style="border-radius: 0px">
+        %= include 'topic/_toolbar'
+    </div>
+</div>
+%= render_topic_tree $topic
 
-<% my $messages = stash('topic')->search_related_rs('messages', {}, { order_by => 'created_at desc' }); %> 
-<% while (my $message = $messages->next) { %>
-    <%= include 'message/_show', message => $message %>
-<% } %>
+% while (my $message = $messages->next) {
+    %= include 'message/_show', message => $message
+% }

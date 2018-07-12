@@ -1,15 +1,18 @@
 <a class="navbar-brand col-md-2 mr-0" href="#"><%= ucfirst app->moniker %></a>
+% if (is_user_authenticated) {
 <ul class="navbar-nav mr-auto flex-row">
 	<li class="nav-item text-nowrap px-3">
-		<a class="nav-link" href="#">Home</a>
-	</li>
-	<li class="nav-item text-nowrap px-3">
-		<a class="nav-link" href="#">Settings</a>
+		<a class="nav-link" href="#"><%= current_user->nick %></a>
 	</li>
 </ul>
+% }
 <!-- <input class="form-control form-control-dark" type="text" placeholder="Search" aria-label="Search"/> -->
 <ul class="navbar-nav">
-	<li class="nav-item text-nowrap px-3">
-		<a class="nav-link" href="#">Sign out</a>
-	</li>
+    <li class="nav-item text-nowrap px-3">
+        % if (is_user_authenticated) {
+            <a class="nav-link" href="<%= url_for('logout') %>">Odhlásit</a>
+        % } else {
+            <a class="nav-link" href="<%= url_for('login') %>">Přihlásit</a>
+        % }
+    </li>
 </ul>

@@ -1,0 +1,8 @@
+<div class="btn-toolbar mr-1" role="toolbar">
+    <div class="btn-group" role="group">
+        <a role="button" class="btn btn-sm btn-outline-dark disabled" href="<%= url_for('add_subtopic', id => $topic->id) %>"><span data-feather="plus"></span></a>
+    </div>
+    <div class="btn-group ml-1" role="group">
+        <a role="button" class="btn btn-sm btn-outline-dark" href="<%= url_for('add_message', id => $topic->id) %>"><span data-feather="send"></span></a>
+    </div>
+</div>

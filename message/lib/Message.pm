@@ -30,6 +30,7 @@ sub startup {
             time        => '%H:%M:%S',
             date        => '%d.%m.%Y',
         });
+
     $DateTimeX::Format::Ago::__{CZE} = {
         future => "v budoucnosti",
         recent => "právě teď",
@@ -40,11 +41,31 @@ sub startup {
         months => ["před %d měsíci", "před měsícem"],
         years => ["před %d lety", "před rokem"],
     };
+
     $self->plugin('TimeAgo', {
             default => 'cze',
         });
 
     $self->plugin('Message::Helper');
+
+    $self->plugin('authentication', {
+            autoload_user => 1,
+            session_key => 'message-pl',
+            load_user => sub {
+                my ($c, $id) = @_;
+                return $c->app->db->resultset('Author')->find($id);
+            },
+            validate_user => sub {
+                my ($c, $username, $password, $extra) = @_;
+                my $author = $c->app->db->resultset('Author')->find({
+                        id => 1,
+                    });
+                use Data::Dumper;
+                return $author->id if defined $author;
+                return undef;
+            },
+        });
+
 
     # Documentation browser under "/perldoc"
     $self->plugin('PODRenderer') if $config->{perldoc};
@@ -58,8 +79,18 @@ sub startup {
     $r = $r->namespaces([qw/Message::Controller/]);
 
     # Normal route to controller
-    $r->get('/')->to('topic#show', id => 1);
-    $r->get('/topic/:id')->to('topic#show');
+    $r->get('/')->over(authenticated => 1)->to('dashboard#index')->name('index');
+
+    $r->get('/')->over(authenticated => 0)->to(cb => sub { return shift->redirect_to('login'); });
+    $r->route('/login')->to('dashboard#login')->name('login');
+    $r->route('/logout')->to(cb => sub {
+        my $self = shift;
+        $self->logout;
+        $self->redirect_to('/');
+        })->name('logout');
+
+    $r = $r->under('/', authenticated => 1);
+    $r->get('/topic/:id')->to('topic#show')->name('topicid');
     $r->route('/topic/:id/comment')->to('message#create')->name('add_message');
     $r->route('/message/:id/edit')->to('message#edit')->name('edit_message');
 }

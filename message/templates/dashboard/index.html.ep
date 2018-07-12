@@ -1,0 +1,4 @@
+%layout 'default';
+%title 'Message Board';
+
+<h2>Welcome</h2>

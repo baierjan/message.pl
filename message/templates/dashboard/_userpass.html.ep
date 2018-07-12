@@ -1,0 +1,16 @@
+% if (defined flash('error') or defined stash('error')) {
+    % my $error = defined flash('error') ? flash 'error' : stash 'error';
+    <div class="alert alert-danger"><%= $error %></div>
+% }
+%= form_for 'login' => (method => 'POST') => begin
+	<div class="form-group">
+		%= label_for 'email', 'E-mailová adresa:'
+		%= email_field 'email', class => 'form-control'.(defined validation->error('email') ? ' is-invalid' : '')
+	</div>
+	<div class="form-group">
+		%= label_for 'password', 'Heslo:'
+		%= password_field 'password', class => 'form-control'.(defined validation->error('password') ? ' is-invalid' : '')
+	</div>
+	%= submit_button 'login', value => "Přihlásit", class => "btn btn-primary"
+	%= csrf_field
+% end
